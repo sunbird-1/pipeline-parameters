@@ -1,0 +1,29 @@
+pipeline{
+    agent any
+    parameters {
+      string defaultValue: 'Dev', name: 'ENV'
+    }
+    stages{
+        stage('Param demo') {
+            steps{
+                build job: 'job-4', parameters: [string(name: 'ENV', value: "${params.ENV}")]
+            }
+        }
+    }
+}
+
+pipeline {
+    agent any
+    parameters {
+        string(name: 'ENV', description: 'enter env value')
+    }
+    stages {
+        stage('Example') {
+            steps {
+                script{
+                    echo "${params.ENV}"
+                }
+            }
+        }
+    }
+}
